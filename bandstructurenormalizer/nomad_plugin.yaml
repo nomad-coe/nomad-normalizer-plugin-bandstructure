@@ -1,0 +1,6 @@
+plugin_type: normalizer
+name: bandstructurenormalizer
+description: |
+ This is the normalizer for band structure in NOMAD.
+normalizer_class_name: bandstructurenormalizer.BandStructureNormalizer
+plugin_source_code_url=None: https://github.com/nomad-coe/nomad-normalizer-plugin-band-structure.git
