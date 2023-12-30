@@ -20,7 +20,7 @@ import numpy as np
 import pytest
 
 from nomad.units import ureg
-from conftest import get_template_band_structure
+from .conftest import get_template_band_structure
 
 
 @pytest.mark.parametrize('gaps, has_reciprocal_cell', [
