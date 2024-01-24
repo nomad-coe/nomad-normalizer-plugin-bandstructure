@@ -28,7 +28,7 @@ dev = [
 
 tests = [
     "electronicparsers@git+https://github.com/nomad-coe/electronic-parsers.git@develop",
-    "workflowparsers@git+https://github.com/nomad-coe/workflow-parsers.git@develop",
+    "workflowparsers@git+https://github.com/nomad-coe/workflow-parsers.git@master",
 ]
 
 [tool.ruff]

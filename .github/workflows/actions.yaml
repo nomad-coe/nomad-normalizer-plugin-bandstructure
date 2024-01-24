@@ -15,7 +15,7 @@ jobs:
         pip install .[tests,dev]
     - name: mypy
       run: |
-        python -m mypy --ignore-missing-imports --follow-imports=silent --no-strict-optional simulationworkflownormalizer tests
+        python -m mypy --ignore-missing-imports --follow-imports=silent --no-strict-optional bandstructurenormalizer tests
     - name: Test with pytest
       if: success() || failure()
       run: |
