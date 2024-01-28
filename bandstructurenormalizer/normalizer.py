@@ -183,7 +183,7 @@ class BandStructureNormalizer(Normalizer):
         band_gap_deprecated_cls = band.m_def.all_sub_sections[
             "band_gap"
         ].sub_section.section_cls
-        infos: List[band_gap_deprecated_cls] = []
+        infos = []
         n_channels = band.segment[0].energies.shape[0]
         for i_channel in range(n_channels):
             info = band_gap_deprecated_cls()
@@ -273,8 +273,7 @@ class BandStructureNormalizer(Normalizer):
                     band_structure=band.segment[i_channel], label="band_structure"
                 )
                 calc.band_gap.append(proper_info)
-                infos.append(info)
-        band.band_gap = infos
+                band.band_gap.append(info)
 
     def add_path_labels(self, band: ArchiveSection, system: ArchiveSection) -> None:
         """Adds special high symmmetry point labels to the band path. Only k
