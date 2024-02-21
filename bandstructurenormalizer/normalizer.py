@@ -183,7 +183,6 @@ class BandStructureNormalizer(Normalizer):
         band_gap_deprecated_cls = band.m_def.all_sub_sections[
             'band_gap'
         ].sub_section.section_cls
-        infos = []
         n_channels = band.segment[0].energies.shape[0]
         for i_channel in range(n_channels):
             info = band_gap_deprecated_cls()
