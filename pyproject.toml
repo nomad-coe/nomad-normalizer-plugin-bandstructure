@@ -3,14 +3,14 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = 'nomad-normalizer-plugin-bandstructure'
-version = '1.0'
-description = 'Band structure normalizer plugin for NOMAD.'
+name = "nomad-normalizer-plugin-bandstructure"
+version = "1.0"
+description = "Band structure normalizer plugin for NOMAD."
 readme = "README.md"
 authors = [{ name = "The NOMAD Authors" }]
 license = { text = "Apache-2.0" }
 dependencies = [
-    "nomad-lab[infrastructure]@git+https://github.com/nomad-coe/nomad.git@develop",
+    "nomad-lab>=1.2.0",
 ]
 
 [project.urls]
@@ -18,11 +18,11 @@ homepage = "https://github.com/nomad-coe/nomad-normalizer-plugin-bandstructure"
 
 [project.optional-dependencies]
 dev = [
-    'mypy==1.0.1',
-    'pytest==3.10.0',
-    'pytest-timeout==1.4.2',
-    'pytest-cov==2.7.1',
-    'ruff==0.1.4'
+    "mypy==1.0.1",
+    "pytest==3.10.0",
+    "pytest-timeout==1.4.2",
+    "pytest-cov==2.7.1",
+    "ruff==0.1.4",
 ]
 
 tests = [
@@ -53,8 +53,25 @@ ignore = [
 ]
 fixable = ["ALL"]
 
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+# use single quotes for strings.
+quote-style = "single"
+
+# indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
 [tool.setuptools.packages.find]
 include = ["bandstructurenormalizer*"]
 
 [tool.setuptools.package-data]
-bandstructurenormalizer = ['*/nomad_plugin.yaml']
+bandstructurenormalizer = ["*/nomad_plugin.yaml"]

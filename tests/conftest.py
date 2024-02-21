@@ -56,7 +56,7 @@ def get_template_computation() -> EntryArchive:
     template = EntryArchive()
     run = runschema.run.Run()
     template.run.append(run)
-    run.program = runschema.run.Program(name="VASP", version="4.6.35")
+    run.program = runschema.run.Program(name='VASP', version='4.6.35')
     system = runschema.system.System()
     run.system.append(system)
     system.atoms = runschema.system.Atoms(
@@ -71,7 +71,7 @@ def get_template_computation() -> EntryArchive:
             [0.0, 0.0, 0.0],
             [2.88186311e-10, 2.88186311e-10, 0.0],
         ],
-        labels=["Br", "K", "Si", "Si"],
+        labels=['Br', 'K', 'Si', 'Si'],
         periodic=[True, True, True],
     )
     scc = runschema.calculation.Calculation()
@@ -93,19 +93,19 @@ def get_template_dft() -> EntryArchive:
     run.method.append(method)
     method.electrons_representation = [
         runschema.method.BasisSetContainer(
-            type="plane waves",
-            scope=["wavefunction"],
+            type='plane waves',
+            scope=['wavefunction'],
             basis_set=[
                 runschema.method.BasisSet(
-                    type="plane waves",
-                    scope=["valence"],
+                    type='plane waves',
+                    scope=['valence'],
                 )
             ],
         )
     ]
-    method.electronic = runschema.method.Electronic(method="DFT")
+    method.electronic = runschema.method.Electronic(method='DFT')
     xc_functional = runschema.method.XCFunctional(
-        exchange=[runschema.method.Functional(name="GGA_X_PBE")]
+        exchange=[runschema.method.Functional(name='GGA_X_PBE')]
     )
     method.dft = runschema.method.DFT(xc_functional=xc_functional)
     scc = run.calculation[-1]
@@ -116,7 +116,7 @@ def get_template_dft() -> EntryArchive:
 def add_template_band_structure(
     template: EntryArchive,
     band_gaps: List = None,
-    type: str = "electronic",
+    type: str = 'electronic',
     has_references: bool = True,
     has_reciprocal_cell: bool = True,
 ) -> EntryArchive:
@@ -137,7 +137,7 @@ def add_template_band_structure(
     if not has_reciprocal_cell:
         template.run[0].system[0].atoms = None
     scc = template.run[0].calculation[0]
-    if type == "electronic":
+    if type == 'electronic':
         bs = runschema.calculation.BandStructure()
         scc.band_structure_electronic.append(bs)
         n_spin_channels = len(band_gaps)
@@ -179,17 +179,17 @@ def add_template_band_structure(
         energies = np.zeros((n_spin_channels, n_points, 2))
         k_points = np.zeros((n_points, 3))
         k_points[:, 0] = np.linspace(0, 1, n_points)
-        if type == "electronic":
+        if type == 'electronic':
             for i_spin in range(n_spin_channels):
                 if band_gaps[i_spin] is not None:
-                    if band_gaps[i_spin][1] == "direct":
+                    if band_gaps[i_spin][1] == 'direct':
                         energies[i_spin, :, 0] = -np.cos(krange)
                         energies[i_spin, :, 1] = np.cos(krange)
-                    elif band_gaps[i_spin][1] == "indirect":
+                    elif band_gaps[i_spin][1] == 'indirect':
                         energies[i_spin, :, 0] = -np.cos(krange)
                         energies[i_spin, :, 1] = np.sin(krange)
                     else:
-                        raise ValueError("Invalid band gap type")
+                        raise ValueError('Invalid band gap type')
                     energies[i_spin, :, 1] += 2 + band_gaps[i_spin][0]
                 else:
                     energies[i_spin, :, 0] = -np.cos(krange)
@@ -204,7 +204,7 @@ def add_template_band_structure(
 
 def get_template_band_structure(
     band_gaps: List = None,
-    type: str = "electronic",
+    type: str = 'electronic',
     has_references: bool = True,
     has_reciprocal_cell: bool = True,
     normalize: bool = True,
@@ -238,106 +238,106 @@ def load_archive(filepath: str):
     return archive
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_cP() -> EntryArchive:
     """Band structure calculation for a cP Bravais lattice."""
-    return load_archive("tests/data/cP.archive.json")
+    return load_archive('tests/data/cP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_cF() -> EntryArchive:
     """Band structure calculation for a cF Bravais lattice."""
-    return load_archive("tests/data/cF.archive.json")
+    return load_archive('tests/data/cF.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_tP() -> EntryArchive:
     """Band structure calculation for a tP Bravais lattice."""
-    return load_archive("tests/data/tP.archive.json")
+    return load_archive('tests/data/tP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_oP() -> EntryArchive:
     """Band structure calculation for a oP Bravais lattice."""
-    return load_archive("tests/data/oP.archive.json")
+    return load_archive('tests/data/oP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_oF() -> EntryArchive:
     """Band structure calculation for a oF Bravais lattice."""
-    return load_archive("tests/data/oF.archive.json")
+    return load_archive('tests/data/oF.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_hP() -> EntryArchive:
     """Band structure calculation for a hP Bravais lattice."""
-    return load_archive("tests/data/hP.archive.json")
+    return load_archive('tests/data/hP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_oI() -> EntryArchive:
     """Band structure calculation for a oI Bravais lattice."""
-    return load_archive("tests/data/oI.archive.json")
+    return load_archive('tests/data/oI.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_mP() -> EntryArchive:
     """Band structure calculation for a mP Bravais lattice."""
-    return load_archive("tests/data/mP.archive.json")
+    return load_archive('tests/data/mP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_aP() -> EntryArchive:
     """Band structure calculation for a aP Bravais lattice."""
-    return load_archive("tests/data/aP.archive.json")
+    return load_archive('tests/data/aP.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_cF_nonstandard() -> EntryArchive:
     """Band structure calculation for a cF Bravais lattice with non-standard k points."""
-    return load_archive("tests/data/cF_nonstandard.archive.json")
+    return load_archive('tests/data/cF_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_cI_nonstandard() -> EntryArchive:
     """Band structure calculation for a cI Bravais lattice with non-standard k points."""
-    return load_archive("tests/data/cI_nonstandard.archive.json")
+    return load_archive('tests/data/cI_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_tI_nonstandard() -> EntryArchive:
     """Band structure calculation for a tI Bravais lattice with non-standard k points."""
-    return load_archive("tests/data/tI_nonstandard.archive.json")
+    return load_archive('tests/data/tI_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_oS_nonstandard() -> EntryArchive:
     """Band structure calculation for a oS Bravais lattice with non-standard k points."""
-    return load_archive("tests/data/oS_nonstandard.archive.json")
+    return load_archive('tests/data/oS_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_hR_nonstandard() -> EntryArchive:
     """Band structure calculation for a hR Bravais lattice with non-standard k points."""
-    return load_archive("tests/data/hR_nonstandard.archive.json")
+    return load_archive('tests/data/hR_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_mP_nonstandard() -> EntryArchive:
     """Band structure calculation for a mP Bravais lattice with a non-standard
     lattice ordering.
     """
-    return load_archive("tests/data/mP_nonstandard.archive.json")
+    return load_archive('tests/data/mP_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def band_path_mS_nonstandard() -> EntryArchive:
     """Band structure calculation for a mS Bravais lattice with non-standard k points.
     lattice ordering.
     """
-    return load_archive("tests/data/mS_nonstandard.archive.json")
+    return load_archive('tests/data/mS_nonstandard.archive.json')
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def phonon() -> EntryArchive:
-    return load_archive("tests/data/phonon.archive.json")
+    return load_archive('tests/data/phonon.archive.json')
