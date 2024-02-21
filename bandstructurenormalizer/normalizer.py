@@ -74,7 +74,7 @@ class BandStructureNormalizer(Normalizer):
         """Used to check that a band has all required information for normalization."""
         if len(band.segment) == 0:
             self.logger.info(
-                "Could not normalize band structure as band segments are missing."
+                'Could not normalize band structure as band segments are missing.'
             )
             return False
         for segment in band.segment:
@@ -82,7 +82,7 @@ class BandStructureNormalizer(Normalizer):
             seg_energies = segment.energies
             if seg_k_points is None or seg_energies is None:
                 self.logger.info(
-                    "Could not normalize band structure as energies or k points are missing."
+                    'Could not normalize band structure as energies or k points are missing.'
                 )
                 return False
         return True
@@ -103,11 +103,11 @@ class BandStructureNormalizer(Normalizer):
         if band.reciprocal_cell is not None:
             return
         try:
-            orig_atoms = system.m_cache["representative_atoms"]
-            symmetry_analyzer = system.symmetry[0].m_cache["symmetry_analyzer"]
+            orig_atoms = system.m_cache['representative_atoms']
+            symmetry_analyzer = system.symmetry[0].m_cache['symmetry_analyzer']
             prim_atoms = symmetry_analyzer.get_primitive_system()
         except Exception:
-            self.logger.info("Could not resolve reciprocal cell.")
+            self.logger.info('Could not resolve reciprocal cell.')
             return
 
         primitive_cell = prim_atoms.get_cell()
@@ -173,7 +173,7 @@ class BandStructureNormalizer(Normalizer):
         eref = energy_highest if energy_fermi is None else energy_fermi
         if eref is None:
             self.logger.info(
-                "could not resolve energy references or band gaps for band structure"
+                'could not resolve energy references or band gaps for band structure'
             )
             return
         eref = eref.magnitude
@@ -181,9 +181,8 @@ class BandStructureNormalizer(Normalizer):
         # Create energy reference sections for each spin channel, add fermi
         # energy if present
         band_gap_deprecated_cls = band.m_def.all_sub_sections[
-            "band_gap"
+            'band_gap'
         ].sub_section.section_cls
-        infos = []
         n_channels = band.segment[0].energies.shape[0]
         for i_channel in range(n_channels):
             info = band_gap_deprecated_cls()
@@ -259,18 +258,18 @@ class BandStructureNormalizer(Normalizer):
                     is_direct_gap = (
                         k_point_distance <= config.normalize.k_space_precision
                     )
-                    info.type = "direct" if is_direct_gap else "indirect"
+                    info.type = 'direct' if is_direct_gap else 'indirect'
 
             if info.value is not None:
                 band_gap_cls = calc.m_def.all_sub_sections[
-                    "band_gap"
+                    'band_gap'
                 ].sub_section.section_cls
                 proper_info = band_gap_cls().m_from_dict(info.m_to_dict())
                 provenance_cls = proper_info.m_def.all_sub_sections[
-                    "provenance"
+                    'provenance'
                 ].sub_section.section_cls
                 proper_info.provenance = provenance_cls(
-                    band_structure=band.segment[i_channel], label="band_structure"
+                    band_structure=band.segment[i_channel], label='band_structure'
                 )
                 calc.band_gap.append(proper_info)
                 band.band_gap.append(info)
@@ -285,18 +284,18 @@ class BandStructureNormalizer(Normalizer):
             labels = segment.endpoints_labels
             if labels is not None:
                 self.logger.info(
-                    "Existing band segment labels detected, skipping label detection."
+                    'Existing band segment labels detected, skipping label detection.'
                 )
                 return
 
         # Try to get the required data. Fail if not found.
         try:
-            lattice_vectors = system.atoms.lattice_vectors.to("angstrom").magnitude
+            lattice_vectors = system.atoms.lattice_vectors.to('angstrom').magnitude
             reciprocal_cell_trans = band.reciprocal_cell.magnitude.T
             bravais_lattice = system.symmetry[0].bravais_lattice
         except Exception:
             self.logger.info(
-                "Could not resolve path labels as required information is missing."
+                'Could not resolve path labels as required information is missing.'
             )
             return
 
@@ -305,7 +304,7 @@ class BandStructureNormalizer(Normalizer):
         special_points = self.get_special_points(bravais_lattice, lattice_vectors)
         if not special_points:
             self.logger.warning(
-                "Could not resolve high-symmetry points for the given simulation cell."
+                'Could not resolve high-symmetry points for the given simulation cell.'
             )
             return
 
@@ -336,11 +335,11 @@ class BandStructureNormalizer(Normalizer):
             )
 
             if start_index is None:
-                start_label = ""
+                start_label = ''
             else:
                 start_label = special_point_labels[start_index]
             if end_index is None:
-                end_label = ""
+                end_label = ''
             else:
                 end_label = special_point_labels[end_index]
             segment.endpoints_labels = [start_label, end_label]
@@ -365,25 +364,25 @@ class BandStructureNormalizer(Normalizer):
         special_points = {}
         try:
             # Non-conventional ordering for certain lattices:
-            if bravais_lattice in ["oP", "oF", "oI", "oS"]:
+            if bravais_lattice in ['oP', 'oF', 'oI', 'oS']:
                 a, b, c = lattice.a, lattice.b, lattice.c
                 assert a < b
-                if bravais_lattice != "oS":
+                if bravais_lattice != 'oS':
                     assert b < c
-            elif bravais_lattice in ["mP", "mS"]:
+            elif bravais_lattice in ['mP', 'mS']:
                 a, b, c = lattice.a, lattice.b, lattice.c
                 alpha = lattice.alpha * pi / 180
                 assert a <= c and b <= c  # ordering of the conventional lattice
                 assert alpha < pi / 2
 
             for keys, values in lattice.get_special_points().items():
-                if keys == "G":
-                    keys = "Γ"
-                if bravais_lattice == "tI":
-                    if keys == "S":
-                        keys = "Σ"
-                    elif keys == "S1":
-                        keys = "Σ1"
+                if keys == 'G':
+                    keys = 'Γ'
+                if bravais_lattice == 'tI':
+                    if keys == 'S':
+                        keys = 'Σ'
+                    elif keys == 'S1':
+                        keys = 'Σ1'
                 special_points[keys] = list(values)
         except Exception:
             pass
