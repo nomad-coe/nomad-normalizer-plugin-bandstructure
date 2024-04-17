@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-from typing import cast, List
+from typing import cast
 from nptyping import NDArray
 import numpy as np
 import ase
@@ -37,17 +37,17 @@ class BandStructureNormalizer(Normalizer):
 
     normalizer_level = 2
 
-    def normalize(self, logger=None) -> None:
+    def normalize(self, archive, logger=None) -> None:
         # Setup logger
         if logger is not None:
             self.logger = logger.bind(normalizer=self.__class__.__name__)
 
         # Do nothing if section run is not present
-        if self.section_run is None:
+        if archive.run is None:
             return
 
         # Loop through the bands
-        for scc in self.section_run.calculation:
+        for scc in archive.run[0].calculation:
             # In order to resolve band gaps, we need a reference to the highest
             # occupied energy or the Fermi energy
             energy_fermi = scc.energy.fermi if scc.energy is not None else None
