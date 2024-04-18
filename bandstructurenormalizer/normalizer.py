@@ -21,7 +21,7 @@ from nptyping import NDArray
 import numpy as np
 import ase
 
-from nomad.datamodel import ArchiveSection
+from nomad.datamodel import EntryArchive, ArchiveSection
 from nomad.normalizing.normalizer import Normalizer
 from nomad import config, atomutils
 from nomad.constants import pi
@@ -37,7 +37,7 @@ class BandStructureNormalizer(Normalizer):
 
     normalizer_level = 2
 
-    def normalize(self, archive, logger=None) -> None:
+    def normalize(self, archive: EntryArchive, logger=None) -> None:
         # Setup logger
         if logger is not None:
             self.logger = logger.bind(normalizer=self.__class__.__name__)
