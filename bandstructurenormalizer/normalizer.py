@@ -42,8 +42,8 @@ class BandStructureNormalizer(Normalizer):
         if logger is not None:
             self.logger = logger.bind(normalizer=self.__class__.__name__)
 
-        # Do nothing if section run is not present
-        if archive.run is None:
+        # Do nothing if run section is not present
+        if not archive.run:
             return
 
         # Loop through the bands
