@@ -215,7 +215,7 @@ def get_template_band_structure(
     )
     if normalize:
         for normalizer in normalizers:
-            normalizer(archive).normalize()
+            normalizer().normalize(archive)
     return archive
 
 
@@ -223,7 +223,7 @@ def parse(filepath, parser_class):
     archive = EntryArchive()
     parser_class().parse(filepath, archive, LOGGER)
     for normalizer in normalizers:
-        normalizer(archive).normalize()
+        normalizer().normalize(archive)
     return archive
 
 
@@ -234,7 +234,7 @@ def load_archive(filepath: str):
         calc.system_ref = calc.system_ref.m_resolved()
         calc.method_ref = calc.method_ref.m_resolved()
     for normalizer in normalizers:
-        normalizer(archive).normalize()
+        normalizer().normalize(archive)
     return archive
 
 
