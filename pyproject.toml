@@ -73,5 +73,5 @@ line-ending = "auto"
 [tool.setuptools.packages.find]
 include = ["bandstructurenormalizer*"]
 
-[tool.setuptools.package-data]
-bandstructurenormalizer = ["*/nomad_plugin.yaml"]
+[project.entry-points.'nomad.plugin']
+bandstructurenormalizer = "bandstructurenormalizer:bandstructure_normalizer_entry_point"
