@@ -30,6 +30,6 @@ class BandStructureNormalizerEntryPoint(NormalizerEntryPoint):
 
 
 bandstructure_normalizer_entry_point = BandStructureNormalizerEntryPoint(
-    name="BandStructureNormalizer",
-    description="Normalizer for the band structure data.",
+    name='BandStructureNormalizer',
+    description='Normalizer for the band structure data.',
 )
