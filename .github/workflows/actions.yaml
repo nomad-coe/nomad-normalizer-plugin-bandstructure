@@ -12,9 +12,10 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
+        pip install uv
         # we need the latest nomad version for testing
         # pip install nomad-lab[infrastructure]@git+https://github.com/nomad-coe/nomad.git@develop
-        pip install '.[dev,tests]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        uv pip install '.[dev,tests]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
         pip install coverage coveralls
     - name: mypy
       run: |
