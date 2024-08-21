@@ -28,7 +28,7 @@ dev = [
 tests = [
     "nomad-schema-plugin-run@git+https://github.com/nomad-coe/nomad-schema-plugin-run.git@develop",
     "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop",
-    "nomad-normalizer-plugin-bandstructure@git+https://github.com/nomad-coe/nomad-normalizer-plugin-bandstructure.git@develop",
+    "nomad-normalizer-plugin-system@git+https://github.com/nomad-coe/nomad-normalizer-plugin-system.git@develop",
 ]
 
 [tool.ruff]
