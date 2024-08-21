@@ -27,6 +27,8 @@ dev = [
 
 tests = [
     "nomad-schema-plugin-run@git+https://github.com/nomad-coe/nomad-schema-plugin-run.git@develop",
+    "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop",
+    "nomad-normalizer-plugin-system@git+https://github.com/nomad-coe/nomad-normalizer-plugin-system.git@develop",
 ]
 
 [tool.ruff]
@@ -73,5 +75,5 @@ line-ending = "auto"
 [tool.setuptools.packages.find]
 include = ["bandstructurenormalizer*"]
 
-[tool.setuptools.package-data]
-bandstructurenormalizer = ["*/nomad_plugin.yaml"]
+[project.entry-points.'nomad.plugin']
+bandstructurenormalizer = "bandstructurenormalizer:bandstructure_normalizer_entry_point"

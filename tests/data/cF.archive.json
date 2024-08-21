@@ -1,7 +1,6 @@
 {
   "run": [
     {
-      "m_def": "runschema.run.Run",
       "program": {
         "name": "VASP",
         "version": "4.6.35 3Apr08 complex parallel LinuxIFC",
@@ -9,6 +8,162 @@
       },
       "method": [
         {
+          "x_vasp_incar_in": {
+            "SYSTEM": "Si.A4",
+            "PREC": "high",
+            "ALGO": "Normal",
+            "ISPIN": 1,
+            "ICHARG": 11,
+            "NELM": 120,
+            "NELMIN": 2,
+            "EDIFF": 1e-06,
+            "IBRION": 2,
+            "NSW": 0,
+            "ISIF": 2,
+            "ISYM": 2,
+            "ENMAX": 343.609,
+            "NBANDS": 37,
+            "LREAL": false,
+            "LPLANE": true,
+            "ISMEAR": 0,
+            "SIGMA": 0.05,
+            "PSTRESS": 0.0,
+            "NSIM": 4,
+            "LWAVE": false,
+            "LCHARG": false,
+            "LSCALU": false
+          },
+          "x_vasp_incar_out": {
+            "SYSTEM": "Si.A4",
+            "LCOMPAT": false,
+            "PREC": "high",
+            "ENMAX": 343.609,
+            "ENAUG": 322.069,
+            "EDIFF": 1e-06,
+            "IALGO": 38,
+            "IWAVPR": 10,
+            "NBANDS": 37,
+            "NELECT": 8.0,
+            "ISMEAR": 0,
+            "SIGMA": 0.05,
+            "LREAL": false,
+            "LMAXPAW": -100,
+            "LMAXMIX": 2,
+            "ISTART": 0,
+            "ICHARG": 11,
+            "INIWAV": 1,
+            "ISPIN": 1,
+            "LNONCOLLINEAR": false,
+            "NUPDOWN": -1.0,
+            "LSORBIT": false,
+            "LSPIRAL": false,
+            "LZEROZ": false,
+            "GGA": "--",
+            "VOSKOWN": 0,
+            "LASPH": false,
+            "LMETAGGA": false,
+            "GGA2": "--",
+            "NELM": 120,
+            "NELMDL": 0,
+            "NELMIN": 2,
+            "ENINI": 343.609,
+            "LDIAG": true,
+            "WEIMIN": 0.0,
+            "EBREAK": 1e-08,
+            "DEPER": 0.3,
+            "NRMM": 4,
+            "TIME": 0.1,
+            "AMIX": 0.4,
+            "BMIX": 1.0,
+            "AMIN": 0.1,
+            "AMIX_MAG": 1.6,
+            "BMIX_MAG": 1.0,
+            "IMIX": 4,
+            "MAXMIX": -45,
+            "WC": 100.0,
+            "INIMIX": 1,
+            "MIXPRE": 1,
+            "MREMOVE": 5,
+            "IDIPOL": 0,
+            "LDIPOL": false,
+            "EFIELD": 0.0,
+            "NGX": 24,
+            "NGY": 24,
+            "NGZ": 24,
+            "NGXF": 30,
+            "NGYF": 30,
+            "NGZF": 30,
+            "ADDGRID": false,
+            "NSW": 0,
+            "IBRION": -1,
+            "ISIF": 2,
+            "PSTRESS": 0.0,
+            "EDIFFG": 1e-05,
+            "NFREE": 1,
+            "POTIM": 0.5,
+            "SMASS": -3.0,
+            "TEBEG": 0.0001,
+            "TEEND": 0.0001,
+            "NBLOCK": 1,
+            "KBLOCK": 1,
+            "NPACO": 256,
+            "APACO": 16.0,
+            "ISYM": 2,
+            "SYMPREC": 1e-05,
+            "LORBIT": false,
+            "NEDOS": 301,
+            "EMIN": 10.0,
+            "EMAX": -10.0,
+            "NWRITE": 2,
+            "LWAVE": false,
+            "LCHARG": false,
+            "LPARD": false,
+            "LVTOT": false,
+            "LELF": false,
+            "LOPTICS": false,
+            "NPAR": 2,
+            "NSIM": 4,
+            "NBLK": 64,
+            "LPLANE": true,
+            "LCRITICAL_MEM": false,
+            "LSCALAPACK": false,
+            "LSCALU": false,
+            "LASYNC": false,
+            "IDIOT": 3,
+            "LMUSIC": false,
+            "LCORR": true,
+            "LREAL_COMPAT": false,
+            "GGA_COMPAT": true,
+            "LBERRY": false,
+            "ICORELEVEL": 0,
+            "LDAU": false,
+            "I_CONSTRAINED_M": 0,
+            "ROPT": 0.0,
+            "MAGMOM": [
+              1.0,
+              1.0
+            ],
+            "SAXIS": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "QSPIRAL": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "DIPOL": -100.0,
+            "RWIGS": -1.0,
+            "STM": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "POMASS": 28.085
+          },
           "dft": {
             "xc_functional": {
               "exchange": [
@@ -25,7 +180,9 @@
           },
           "k_mesh": {
             "sampling_method": "Line-path",
-            "grid": 128,
+            "grid": [
+              128
+            ],
             "points": {
               "re": [
                 [
@@ -14141,10 +14298,7 @@
                   "scope": [
                     "valence"
                   ],
-                  "cutoff": [
-                    5.5052231103210594e-17,
-                    5.5052231103210594e-17
-                  ],
+                  "cutoff": 5.5052231103210594e-17,
                   "frozen_core": true
                 },
                 {
@@ -123310,7 +123464,7 @@
     "m_def": "simulationworkflowschema.single_point.SinglePoint"
   },
   "metadata": {
-    "mainfile": "/home/alvin/work/nomad2/nomad/dependencies/normalizers/simulation/band_structure/tests/data/cF/vasprun.xml.bands.xz",
+    "mainfile": "/home/alvin/work/nomad2/nomad-normalizer-plugin-bandstructure/tests/data/cF/vasprun.xml.bands.xz",
     "domain": "dft"
   }
 }

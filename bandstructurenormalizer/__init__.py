@@ -15,4 +15,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from .normalizer import BandStructureNormalizer
+
+from nomad.config.models.plugins import NormalizerEntryPoint
+
+
+class BandStructureNormalizerEntryPoint(NormalizerEntryPoint):
+    def load(self):
+        import bandstructurenormalizer
+        from .normalizer import BandStructureNormalizer
+
+        bandstructurenormalizer.BandStructureNormalizer = BandStructureNormalizer
+
+        return BandStructureNormalizer(**self.dict())
+
+
+bandstructure_normalizer_entry_point = BandStructureNormalizerEntryPoint(
+    name='BandStructureNormalizer',
+    description='Normalizer for the band structure data.',
+)
