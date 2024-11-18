@@ -18,12 +18,12 @@ homepage = "https://github.com/nomad-coe/nomad-normalizer-plugin-bandstructure"
 
 [project.optional-dependencies]
 dev = [
-    "mypy==1.0.1",
-    "pytest==3.10.0",
-    "pytest-timeout==1.4.2",
-    "pytest-cov==2.7.1",
-    "ruff==0.1.4",
-    "uv>=0.2.35",
+    'mypy==1.0.1',
+    'pytest>= 5.3.0, <8',
+    'pytest-timeout>=1.4.2',
+    'pytest-cov>=2.7.1',
+    'ruff>=0.6',
+    'typing-extensions>=4.12',
 ]
 
 tests = [
