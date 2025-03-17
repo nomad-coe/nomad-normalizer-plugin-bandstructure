@@ -16,8 +16,7 @@
 # limitations under the License.
 #
 
-from typing import cast
-from nptyping import NDArray
+from typing import cast, Optional
 import numpy as np
 import ase
 
@@ -125,7 +124,7 @@ class BandStructureNormalizer(Normalizer):
         band.reciprocal_cell = recip_cell
 
     def get_k_space_distance(
-        self, reciprocal_cell: NDArray, point1: NDArray, point2: NDArray
+        self, reciprocal_cell: np.ndarray, point1: np.ndarray, point2: np.ndarray
     ) -> float:
         """Used to calculate the Euclidean distance of two points in k-space,
         given relative positions in the reciprocal cell.
@@ -147,27 +146,27 @@ class BandStructureNormalizer(Normalizer):
         self,
         calc: ArchiveSection,
         band: ArchiveSection,
-        energy_fermi: NDArray,
-        energy_highest: NDArray,
-        energy_lowest: NDArray,
+        energy_fermi: Optional[np.ndarray],
+        energy_highest: Optional[np.ndarray],
+        energy_lowest: Optional[np.ndarray],
     ) -> None:
         """Given the band structure and information about energy references,
         determines the band gap and energy references separately for all spin
         channels.
         """
         band.energy_fermi = energy_fermi
-        path: NDArray = []
-        energies: NDArray = []
+        path_temp: list[np.ndarray] = []
+        energies_temp: list[np.ndarray] = []
         for segment in band.segment:
             seg_k_points = segment.kpoints
             seg_energies = segment.energies
             seg_energies = seg_energies.magnitude
             seg_energies = np.swapaxes(seg_energies, 1, 2)
-            path.append(seg_k_points)
-            energies.append(seg_energies)
+            path_temp.append(seg_k_points)
+            energies_temp.append(seg_energies)
 
-        path = np.concatenate(path, axis=0)
-        energies = np.concatenate(energies, axis=2)
+        path = np.concatenate(path_temp, axis=0)
+        energies = np.concatenate(energies_temp, axis=2)
 
         # No reference data available
         eref = energy_highest if energy_fermi is None else energy_fermi
@@ -176,7 +175,7 @@ class BandStructureNormalizer(Normalizer):
                 'could not resolve energy references or band gaps for band structure'
             )
             return
-        eref = eref.magnitude
+        eref = eref.magnitude if hasattr(eref, 'magnitude') else eref
 
         # Create energy reference sections for each spin channel, add fermi
         # energy if present
@@ -239,7 +238,9 @@ class BandStructureNormalizer(Normalizer):
             info.energy_highest_occupied = i_energy_highest
             info.energy_lowest_unoccupied = i_energy_lowest
             try:
-                gap_value = i_energy_lowest - i_energy_highest
+                gap_value = 0.0
+                if i_energy_lowest and i_energy_highest:
+                    gap_value = i_energy_lowest - i_energy_highest
             except TypeError:
                 return
             info.value = 0.0 if gap_value < 0.0 else gap_value
