@@ -21,8 +21,8 @@ from nomad.config.models.plugins import NormalizerEntryPoint
 
 class BandStructureNormalizerEntryPoint(NormalizerEntryPoint):
     def load(self):
-        import bandstructurenormalizer
-        from .normalizer import BandStructureNormalizer
+        import bandstructurenormalizer  # noqa
+        from .normalizer import BandStructureNormalizer  # noqa
 
         bandstructurenormalizer.BandStructureNormalizer = BandStructureNormalizer
 
